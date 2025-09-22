@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import subimg from "../assets/subima.png"
+import subimg from "../assets/subima.png";
 
-export default function Diagnosis() {
+export default function Procedure({ onClose }) {
   const [selected, setSelected] = useState({});
   const [procedure, setProcedure] = useState("");
   const [history, setHistory] = useState("");
   const [doctorComments, setDoctorComments] = useState({ LE: "", RE: "" });
-  const [showPopup, setShowPopup] = useState(false);
 
   const diagnoses = [
     "CATARACT - MATURE",
@@ -22,11 +20,10 @@ export default function Diagnosis() {
     "STRABISMUS – ICS",
   ];
 
-  // Discount values
   const discounts = [0, 0, 0, 0, 0, 100, 100, 100, 100, 100];
-
-  // Amount values
   const amounts = [10.0, 10.0, 10.0, 10.0, 10.0, 100.0, 10.0, 10.0, 25.0, 10.0];
+
+  const [showPopup, setShowPopup] = useState(false);
 
   const toggleCheck = (eye, index) => {
     setSelected((prev) => ({
@@ -35,12 +32,10 @@ export default function Diagnosis() {
     }));
   };
 
-  // Submit functionality (only this triggers popup)
   const handleSubmit = () => {
     setShowPopup(true);
   };
 
-  // Reset functionality
   const handleReset = () => {
     setSelected({});
     setProcedure("");
@@ -49,36 +44,36 @@ export default function Diagnosis() {
   };
 
   return (
-    <div className="w-8xl m-10 mx-auto p-6">
-      <h2 className="text-2xl ml-20 font-bold mb-4 uppercase">
+    <div className="bg-white w-full rounded-2xl shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+      >
+        ✕
+      </button>
+
+      {/* ================= PROCEDURE TABLE ================= */}
+      <h2 className="text-2xl ml-2 font-bold mb-4 uppercase">
         Diagnosis (Selection Table)
       </h2>
 
-      {/* Table */}
       <div className="overflow-hidden">
-        {/* Header */}
         <div className="grid m-6 grid-cols-5 gap-6 text-center">
-          {["DIAGNOSIS", "AMOUNT", "DISCOUNT", "RIGHT", "LEFT"].map(
-            (header, i) => (
-              <div key={i} className="flex justify-center">
-                <div className="px-8 py-2 font-semibold rounded-full bg-[#6D94C5] w-fit">
-                  {header}
-                </div>
+          {["DIAGNOSIS", "AMOUNT", "DISCOUNT", "RIGHT", "LEFT"].map((header, i) => (
+            <div key={i} className="flex justify-center">
+              <div className="px-8 py-2 font-semibold rounded-full bg-[#6D94C5] w-fit">
+                {header}
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
 
-        {/* Rows */}
         {diagnoses.map((diag, i) => (
           <div key={i} className="grid grid-cols-5 text-sm items-center">
             <div className="p-3 ml-10 text-lg">{diag}</div>
-            <div className="p-3 flex justify-center text-lg font-medium">
-              {amounts[i]}
-            </div>
-            <div className="p-3 flex justify-center text-lg font-medium">
-              {discounts[i]}
-            </div>
+            <div className="p-3 flex justify-center text-lg font-medium">{amounts[i]}</div>
+            <div className="p-3 flex justify-center text-lg font-medium">{discounts[i]}</div>
             <div className="p-3 flex justify-center">
               <input
                 type="checkbox"
@@ -190,7 +185,7 @@ export default function Diagnosis() {
       <div className="flex justify-end gap-4 mt-8">
         <button
           onClick={handleReset}
-          className="bg-red text-white px-6 py-2 rounded-full"
+          className="bg-red-500 text-white px-6 py-2 rounded-full"
         >
           Reset
         </button>
@@ -202,16 +197,11 @@ export default function Diagnosis() {
         </button>
       </div>
 
-      {/* Popup (only from Submit) */}
+      {/* Popup (from Submit) */}
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg relative">
-        
-            <img
-              src={subimg}
-              alt="Success"
-              className="mx-auto mb-4"
-            />
+            <img src={subimg} alt="Success" className="mx-auto mb-4" />
             <button
               onClick={() => setShowPopup(false)}
               className="absolute top-2 right-2 text-red-500 font-bold"

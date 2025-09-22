@@ -4,14 +4,14 @@ const FollowUp = () => {
   return (
        <div>
        {/* Heading */}
-        <h1 className="text-2xl font-bold text-center mb-6">FOLLOW UP</h1>
+        <h1 className="text-2xl font-bold text-start m-6">FOLLOW UP</h1>
     <div className="flex justify-center  w-8xl items-center py-10">
       
       <div className="w-full bg-[#CBDCEB] p-6">
       
 
        {/* Next Visit Info */}
-<div className="grid grid-cols-4 gap-4 text-start mb-6">
+<div className="grid grid-cols-4 gap-4  text-xl text-start mb-6">
   {/* Headings */}
   <h3 className="font-semibold">NEXT VISIT</h3>
   <h3 className="font-semibold">DATE</h3>
@@ -37,7 +37,7 @@ const FollowUp = () => {
 
         {/* Transfer Section */}
        <div className="mb-6">
-  <div className="flex flex-wrap gap-4">
+  <div className="flex flex-wrap text-xl gap-4">
     {/* Label */}
     <p className="font-medium mt-1">Transfer To:</p>
 
@@ -69,7 +69,7 @@ const FollowUp = () => {
 
 
       {/* Remarks Section */}
-<div className="mb-6 flex gap-6">
+<div className="mb-6 text-xl flex gap-6">
   <div className="flex-1">
     <h2 className="font-semibold">Additional Remarks</h2>
     <input

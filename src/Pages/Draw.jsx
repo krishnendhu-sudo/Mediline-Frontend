@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import patient from '../assets/patient.jpg';
 import FollowUp from '../components/FollowUp';
 
-const CaseHistory = () => {
+const Draw = () => {
   const navigate = useNavigate();
 
   // Map tab names to routes
@@ -63,4 +63,4 @@ const CaseHistory = () => {
   );
 };
 
-export default CaseHistory;
+export default Draw;

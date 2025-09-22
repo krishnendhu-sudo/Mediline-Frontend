@@ -2,24 +2,22 @@ import React, { useState } from "react";
 import { Check, RefreshCcw } from "lucide-react";
 import subima from "../assets/subima.png";
 
-export default function Diagnosis() {
+export default function OTCounselling({ onClose }) {
   const [selected, setSelected] = useState({});
   const [history, setHistory] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
-  const diagnoses = [
-    "CATARACT - MATURE",
-    "GLAUCOMA - OPEN ANGLE",
-    "GLAUCOMA - ANGLECLOSURE",
-    "STRABISMUS",
-    "STRABISMUS – ESOTROPIA",
-    "STRABISMUS – EXOTROPIA",
-    "NEO VASCULARIZATION OF IRIS",
-    "STRABISMUS – ACS",
-    "STRABISMUS – IDS",
-    "STRABISMUS – ICS",
+  // Sample diagnoses/procedures for OT counselling
+  const procedures = [
+    "CATARACT SURGERY",
+    "GLAUCOMA SURGERY",
+    "STRABISMUS CORRECTION",
+    "LENS IMPLANT",
+    "CORNEAL TRANSPLANT",
+    "RETINAL DETACHMENT",
   ];
 
+  // Toggle checkboxes
   const toggleCheck = (eye, index) => {
     if (eye === "both") {
       setSelected((prev) => {
@@ -38,33 +36,32 @@ export default function Diagnosis() {
     }
   };
 
-  // Submit function → show popup
-  const handleSubmit = () => {
-    setShowPopup(true);
-  };
+  // Submit → show popup
+  const handleSubmit = () => setShowPopup(true);
 
-  // Reset function → clear inputs and selections
+  // Reset → clear selections and history
   const handleReset = () => {
     setSelected({});
     setHistory("");
   };
 
   return (
-    <div className="w-8xl m-10 mx-auto p-6">
-      {/* OT Counselling Table */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl ml-20 font-bold">OT COUNSELLING</h1>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="border rounded-full px-3 py-2 w-64"
-        />
-      </div>
+    <div className="bg-white w-full rounded-2xl shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+      >
+        ✕
+      </button>
 
+      {/* Table Header */}
+      <h2 className="text-2xl ml-2 font-bold mb-4 uppercase">
+        OT COUNSELLING
+      </h2>
       <div className="overflow-hidden">
-        {/* Header */}
         <div className="grid m-6 grid-cols-4 gap-6 text-center">
-          {["DIAGNOSIS", "RIGHT", "LEFT", "BOTH"].map((header, i) => (
+          {["PROCEDURE", "RIGHT", "LEFT", "BOTH"].map((header, i) => (
             <div key={i} className="flex justify-center">
               <div className="px-8 py-2 font-semibold rounded-full bg-[#6D94C5] w-fit">
                 {header}
@@ -74,9 +71,9 @@ export default function Diagnosis() {
         </div>
 
         {/* Rows */}
-        {diagnoses.map((diag, i) => (
+        {procedures.map((proc, i) => (
           <div key={i} className="grid grid-cols-4 text-sm items-center">
-            <div className="p-3 ml-8 text-lg">{diag}</div>
+            <div className="p-3 ml-8 text-lg">{proc}</div>
 
             <div className="p-3 flex justify-center">
               <input
@@ -111,7 +108,7 @@ export default function Diagnosis() {
       </div>
 
       {/* Procedure History */}
-      <div className="p-6 w-full mr-10">
+      <div className="p-6 w-full mt-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-xl font-bold">PROCEDURE HISTORY</h1>
           <input
@@ -140,7 +137,7 @@ export default function Diagnosis() {
         </div>
       </div>
 
-      {/* Submit & Reset Buttons */}
+      {/* Buttons */}
       <div className="flex justify-end gap-4 mt-6">
         <button
           onClick={handleReset}
@@ -160,11 +157,7 @@ export default function Diagnosis() {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg relative">
-            <img
-              src={subima}
-              alt="Success"
-              className="mx-auto mb-4"
-            />
+            <img src={subima} alt="Success" className="mx-auto mb-4" />
             <button
               onClick={() => setShowPopup(false)}
               className="absolute top-2 right-2 text-red-500 font-bold"

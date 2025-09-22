@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import DoctorCards from "../components/DoctorCards";
 import DoctorTable from "../components/DoctorTable";
+import Profile from "../components/Profile";
 
 export default function DoctorWaitingList() {
   const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState(null); // <-- selected patient
 
   const cards = [
     { count: 1, label: "READY TO SEE", color: "bg-[#D8434F9E]" },
@@ -32,7 +34,7 @@ export default function DoctorWaitingList() {
   const patients = [
     {
       opNumber: "LVSERD2025/I96615",
-      name: "SACHIN",
+      name: "Sachin",
       age: "55 YEARS",
       sex: "M",
       inTime: "11:28:24",
@@ -43,6 +45,7 @@ export default function DoctorWaitingList() {
       scheme: "GENERAL",
       category: "CONSULTATION",
       remarks: "",
+      profileImg: "/path/to/Proimg.png", // add profile image path
     },
   ];
 
@@ -54,14 +57,25 @@ export default function DoctorWaitingList() {
     }
   };
 
+  const handlePatientClick = (patient) => {
+    setSelectedPatient(patient); // set selected patient
+  };
+
   return (
     <div className="w-full flex flex-col items-start py-10">
       <h2 className="text-xl md:text-2xl font-bold text-black mb-6">
         DOCTOR / Waiting List
       </h2>
 
-      {/* Cards Section: smaller width */}
-      <div className="w-full max-w-7xl px-8"> 
+      {/* Show Profile at top if patient selected */}
+      {selectedPatient && (
+        <div className="w-full mb-6">
+          <Profile patient={selectedPatient} />
+        </div>
+      )}
+
+      {/* Cards Section */}
+      <div className="w-full max-w-7xl px-8">
         <DoctorCards
           cards={cards}
           onCardClick={handleCardClick}
@@ -69,10 +83,14 @@ export default function DoctorWaitingList() {
         />
       </div>
 
-      {/* Doctor Table: full width */}
+      {/* Doctor Table */}
       {selectedCard === "READY TO SEE" && (
         <div className="w-full px-8 mt-6">
-          <DoctorTable headers={tableHeaders} patients={patients} />
+          <DoctorTable
+            headers={tableHeaders}
+            patients={patients}
+            onPatientClick={handlePatientClick} // <-- pass click handler
+          />
         </div>
       )}
     </div>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import patient from "../assets/patient.jpg";
 import ArReading from "../components/ArReading";
-import Visual from "../components/Visual";
+// import Visual from "../components/Visual";
+import Visual from "../components/visual";
 import Examination from "../components/Examination";
 import Pog from "../components/Pog";
 import Refraction from "../components/Refraction";
@@ -9,6 +10,8 @@ import Retinoscopy from "../components/Retinoscopy";
 import Ark from "../components/Ark";
 import Cl from "../components/Cl";
 import Subima from "../assets/subima.png";
+import ClinicalFindings from "../components/ClinicalFindings";
+import Spectacle from "../components/Spectacle";
 
 // Icons
 import { FiRefreshCw } from "react-icons/fi";
@@ -77,7 +80,7 @@ const PatientInfo = () => {
         </div>
 
         {/* Buttons Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 text-[32px] sm:grid-cols-2 md:grid-cols-4 gap-4">
           {[
             "Presenting Complaints",
             "Past History",
@@ -102,6 +105,9 @@ const PatientInfo = () => {
         <Retinoscopy />
         <Ark />
         <Cl />
+        <ClinicalFindings/>
+        <Spectacle/>
+
 
         {/* ✅ Buttons */}
         <div className="flex justify-end gap-4 mt-6">
